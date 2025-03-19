@@ -6,3 +6,29 @@ pre {
   margin: 0;
   white-space: pre-wrap;
 }
+
+.App {
+  display: block;
+  border: 1px solid #000;
+}
+
+.Row {
+  display: flex;
+  flex-wrap: wrap;
+
+  .statement-col {
+    width: 57px;
+    flex: none !important;
+  }
+
+  .Col {
+    flex: 1;
+    width: 100%;
+  }
+}
+
+.content-statement {
+  justify-content: space-between !important;
+  display: flex;
+  flex-wrap: wrap;
+}
