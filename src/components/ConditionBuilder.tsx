@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { RulesProps } from '../types/condition';
 import { IfStatement } from './IfStatement';
+import { ThemeContext } from '../ThemeContext';
 
 
 export const ConditionBuilder = (props: RulesProps) : React.JSX.Element => {
+  const { theme } = React.useContext(ThemeContext)
+  
   const handleFieldChange = (event: React.FormEvent<HTMLSelectElement>) => {
     const element = event.target as HTMLSelectElement;
     console.log(element.value)
@@ -14,8 +17,13 @@ export const ConditionBuilder = (props: RulesProps) : React.JSX.Element => {
   }
   
   const handleAddRule = () => {
-    // let newParam = { field: variables[0].name, operator: '!', value: null }
-    console.log('add rule')
+    let newParam = { field: 'isRegistered', operator: '!', value: null }
+    const conditions = [...props.rule.condition.conditions, newParam]
+    const operator = props.rule.condition.conditions.length > 0 ? '&&' : null
+    // console.log(conditions, operator)
+    const condition = {...props.rule.condition, conditions, operator }
+    props.updateRule(condition)
+    // console.log('add rule', condition)
   }
 
   return (
@@ -32,7 +40,7 @@ export const ConditionBuilder = (props: RulesProps) : React.JSX.Element => {
                   </select>
               ) : (<></>) }
             <div className="Col">
-              <button onClick={(event) => handleAddRule() }>+ Rule</button>
+              <button className={theme} onClick={(event) => handleAddRule() }>+ Rule</button>
             </div>
           </div>
           <div className="Row">
@@ -80,6 +88,10 @@ export const ConditionBuilder = (props: RulesProps) : React.JSX.Element => {
             <div className="Col">
               <IfStatement rules={props.rule.body} />
             </div>
+          </div>
+          <div className="Row">
+            <div className="statement-col">ELSE</div>
+            <div></div>
           </div>
         </>
       ) : ( <></> )
