@@ -30,6 +30,7 @@ export type RuleTypeArray<R extends RuleType, D extends Declaration> = (R | D)[]
 
 export interface RulesProps {
   rule: RuleType,
+  updateRule: any
 }
 
 export interface BodyRulesProps<D extends Declaration = Declaration> {
