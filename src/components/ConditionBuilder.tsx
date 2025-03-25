@@ -26,6 +26,20 @@ export const ConditionBuilder = (props: RulesProps) : React.JSX.Element => {
     // console.log('add rule', condition)
   }
 
+  const removeRule = (index) => {
+    let conditions = [...props.rule.condition.conditions]
+    conditions.splice(index, 1)
+
+    let operator = props.rule.condition.operator
+    const type = props.rule.condition.type
+    if (conditions.length <= 1) {
+      operator = null
+    }
+
+    const condition = {...props.rule.condition, conditions, operator }
+    props.updateRule(condition)
+  }
+
   return (
     <>
       { !! props.rule && !! props.rule.condition? (
@@ -75,7 +89,7 @@ export const ConditionBuilder = (props: RulesProps) : React.JSX.Element => {
                         }
                       </div>
                       <div className="Col">
-                        <button onClick={(event) => handleAddRule() }>x</button>
+                        <button onClick={(event) => removeRule(index) }>x</button>
                       </div>
                     </div>
                   </div>
